@@ -22,7 +22,7 @@ function darkLight() {
         });
         // Поменяем цвета переключателя бургер меню
         burgerMenuBthLines.forEach(line => {
-            line.style.border = "2px solid black"
+            line.style.backgroundColor = "black"
         });
 
     } else {
@@ -34,10 +34,8 @@ function darkLight() {
         });
         // Поменяем цвета переключателя бургер меню
         burgerMenuBthLines.forEach(line => {
-            line.style.border = "2px solid white"
+            line.style.backgroundColor = "white"
         })
     }
     islight = !islight;
 }
-
-

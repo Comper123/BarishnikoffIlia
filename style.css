@@ -12,16 +12,17 @@
     font-family: "Source Sans 3", sans-serif;
 }
 
-
 /* Для плавной прокрутки */
 html {
   scroll-behavior: smooth;
 }
 
+/* Цветовые правила сайта */
 :root{
     --blue: #007BFF;
 }
 
+/* Для плавного появления элементов */
 .wow {
     opacity: 0;
     transition: all 0.3s 0.3s ease-out;
@@ -42,6 +43,17 @@ html {
     color: #E7E7E7;
 }
 
+/* Сделаем тень светлому header */
+body:has(#switch:checked) > header{
+    box-shadow: 0 5px 52px 1px rgba(0, 0, 0, 0.37);
+}
+
+/* В случае если у нас нет бургер меню сделаем отступ для header */
+#show-burger-menu:has(>input:not(:checked)) ~ .hello{
+    padding-top: 100px;
+}
+
+/* шапка */
 header{
     width: 100%;
     position: fixed;
@@ -50,6 +62,7 @@ header{
     padding: 0 100px;
     display: flex;
     align-items: center;
+    z-index: 1000;
     min-height: 75px;
     flex-direction: row;
     background-color: inherit;
@@ -70,11 +83,16 @@ header{
             font-size: 18px;
             font-weight: 500;
             transition: .4s;
+            border-radius: 10px;
+            &:hover{
+                transition: .4s;
+                background-color: #00000052;
+            }
         }
     }
 }
 
-/* Switch theme */
+/* Переключатель темы */
 .switch-label{
     height: 34px;
     input{
@@ -109,6 +127,7 @@ header{
     }
 }
 
+/* Ссылка */
 .link{
     text-decoration: none;
     border-bottom: solid #007BFF 4px;
@@ -116,11 +135,9 @@ header{
     position: relative;
     padding-left: 5px;
     padding-right: 5px;
-
     &:visited{
         color: inherit;
     }
-
     &::after{
         content: '';
         position: absolute;
@@ -139,13 +156,15 @@ header{
     &:hover::after{
         height: 100%;
     }
-    
 }
+
 .project{
     margin-bottom: 50px;
-
     &:last-child{
         margin-bottom: 0;
+    }
+    .base{
+        text-align: justify;
     }
 }
 .other-project{
@@ -157,6 +176,9 @@ header{
 }
 .other-project article{
     display: flex;
+}
+.other-project .base{
+    text-align: justify;
 }
 .other-project article a{
     margin-left: 20px;
@@ -182,6 +204,8 @@ header{
     z-index: 500;
     background-color: #000000c4;
 }
+
+/* burger */
 #show-burger-menu{
     display: none;
     width: 40px;
@@ -189,15 +213,16 @@ header{
     position: fixed;
     flex-direction: column;
     justify-content: space-around;
-    top: 20px;
-    right: 20px;
+    top: calc((10vh - 40px) / 2);
+    right: 2vh;
     z-index: 1001;
     transition: .4s all;
     span{
         display: inline-block;
         width: 40px;
+        height: 4px;
+        background-color: white;
         border-radius: 2px;
-        border: 2px solid white;
         transition: .3s all;
     }
     input{
@@ -219,15 +244,6 @@ header{
     }
 }
 
-#show-burger-menu:has(>input:checked) + header{
-    left: auto;
-    right: 0;
-    transform: translateX(0);
-}
-body:has(#show-burger:checked) > .shadow{
-    display: flex;
-}
-
 .teg{
     font-size: 16px;
     border: #007BFF 1px solid;
@@ -237,7 +253,6 @@ body:has(#show-burger:checked) > .shadow{
     font-weight: 600;
     margin-right: 10px;
     transition: .4s;
-
     &:hover{
         transition: .4s;
         cursor: pointer;
@@ -258,7 +273,6 @@ body:has(#show-burger:checked) > .shadow{
     position: relative;
     top: 0;
     transition: transform .4s ease-in-out;
-
     &:hover{
         transform: translate3d(20px, 0px, 0px);
     }
@@ -267,85 +281,81 @@ body:has(#show-burger:checked) > .shadow{
     font-size: 18px;
     font-weight: 600;
 }
+
+/* footer */
 .footer{
-    width: 100vw;
+    width: 100%;
     display: flex;
-    justify-content: left;
-    padding-left: 10vw;
+    justify-content: center;
     margin-bottom: 50px;
 }
 .footer article{
     width: 300px;
 }
 
-/* Чтобы fixed header имитировать */
-.hello{
-    padding-top: 100px;
-}
-
 /* Для десктопа */
-@media screen and (min-width: 768px){
-
-}
-
-/* Для планшета */
-@media (min-width: 401px){
+@media (min-aspect-ratio: 16/9){
+    /* Отступ сверху при прокрутке */
+    html{
+        scroll-padding-top: 75px;
+    }
     body{
         display: flex;
         flex-direction: column;
         align-items: center;
     }
     .hello{
-        height: 100vh;
-        width: 1800px;
-        margin: auto;
+        width: 100%;
+        margin: 0px auto 0 auto;
         display: flex;
         flex-direction: column;
+        padding-top: 200px;
     }
     .change-theme{
-        /* width: 100%; */
-        /* height: 10vh; */
         display: flex;
         justify-content: right;
-        /* padding-right: 8vw; */
         align-items: center;
-    }
-    .change-theme i{
-        /* margin: 0 10px; */
-    }
-    .hello-text{
-        width: 600px;
-        height: 80vh;
-        display: flex;
-        align-items: left;
-        justify-content: space-around;
-        flex-direction: column;
-        margin-left: 400px;
+        >div{
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
     }
     .hello-main{
-        display: flex;
-        width: 100%;
-        height: 80vh;
-    }
-    .hello-image{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 800px;
-        height: 80vh;
-    }
-    .i-photo{
-        width: 400px;
-        height: 400px;
-        border-radius: 50%;
-        object-fit: cover;
-        background-size: cover;
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        width: 80%;
+        align-self: flex-end;
+        >.hello-text{
+            display: flex;
+            align-items: left;
+            justify-content: space-around;
+            flex-direction: column;
+            width: 100%;
+            justify-self: flex-end;
+            >.zag{
+                font-size: 28px;
+            }
+        }
+        >.hello-image{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            >.i-photo{
+                width: 90%;
+                aspect-ratio: 1;
+                border-radius: 50%;
+                object-fit: cover;
+                background-size: cover;
+            }
+        }
     }
     .main{
         width: 1000px;
         margin: auto;
     }
-    .main>article{
+    .main>article,
+    .main>section{
         width: 100%;
         display: flex;
         margin-bottom: 100px;
@@ -361,8 +371,8 @@ body:has(#show-burger:checked) > .shadow{
         width: 70%;
         padding-top: 3%;
         padding-left: 5%;
-        /* padding-right: 5%; */
         display: flex;
+        text-align: justify;
         flex-direction: column;
     }
     /* Constants */
@@ -411,11 +421,54 @@ body:has(#show-burger:checked) > .shadow{
     }
     .skills_list div{
         margin-top: 3px;
-
         &:first-child{
             margin-top: 10px;
         }
     }
+    @media (max-width: 1000px){
+        .main{
+            width: 600px;
+        }
+        .skills .content{
+            display: grid !important; 
+            grid-template-columns: 1fr 1fr;
+        }
+        .list1{
+            grid-column: 1;
+            grid-row: 2;
+        }
+        .list2{
+            grid-column: 2;
+            grid-row: 2;
+        }
+        .txt3{
+            margin-top: 30px;
+            grid-column: 1;
+            grid-row: 3;
+        }
+        .txt4{
+            margin-top: 30px;
+            grid-column: 2;
+            grid-row: 3;
+        }
+        .skills_list{
+            display: flex;
+            flex-direction: column;
+        }
+        .skills_list div{
+            display: flex;
+            margin-top: 3px;
+            &:first-child{
+                margin-top: 10px;
+            }
+        }
+    }
+    @media (max-width: 600px){
+        .main{
+            width: 400px;
+        }
+    }
+    /* experience block */
     .experience .content{
         display: flex;
         flex-direction: column;
@@ -423,21 +476,21 @@ body:has(#show-burger:checked) > .shadow{
     }
     .exp_pos{
         display: flex;
-        justify-content: space-between;
-        height: 50px;
+        flex-direction: column;
         width: 100%;
         margin-bottom: 30px;
     }
     .exp_pos_data{
         display: flex;
-        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
     }
     .exp_pos_data .h{
         margin-bottom: 4px;
     }
     .project-img{
-        width: 600px;
-        height: 400px;
+        width: 100%;
+        aspect-ratio: 16/9;
         object-fit: cover;
         background-color: cover;
         border-radius: 20px;
@@ -447,59 +500,7 @@ body:has(#show-burger:checked) > .shadow{
 }
 
 /* Для телефона */
-@media (max-width: 400px){
-    /* Сделаем бургер меню */
-    .shadow{
-        /* display: flex; */
-    }
-    #show-burger-menu{
-        display: flex;
-    }
-    header{
-        position: fixed;
-        box-shadow: none;
-        top: 0;
-        right: 0;
-        transform: translateX(100%);
-        z-index: 1000;
-        display: flex;        
-        flex-direction: column-reverse;
-        justify-content: flex-end;
-        padding: 0;
-        width: 70%;
-        height: 100%;
-        transition: .8s;
-        >div{
-            display: none;
-        }
-        nav{
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            width: 100%;
-            a{
-                margin: 0;
-                transition: .4s;
-                border-radius: 4px;
-                padding-left: 8px;
-                margin-left: 25px;
-                margin-right: 25px;
-                &:hover{
-                    transition: .4s;
-                    background-color: #00000052;
-                }
-            }
-        }
-        .change-theme{
-            justify-content: space-between;
-            >div{
-                display: flex;
-                height: 100%;
-                align-items: center;
-                padding: 0 20px;
-            }
-        }
-    }
+@media (max-aspect-ratio: 4/5){
     .hello{
         width: 100vw;
         display: flex;
@@ -541,18 +542,18 @@ body:has(#show-burger:checked) > .shadow{
         width: 250px;
         height: 250px;
         border-radius: 50%;
+        margin-top: 40px;
         object-fit: cover;
         background-size: cover;
     }
     .main{
-        width: 75vw;
+        width: 85%;
         margin: auto;
     }
     .main>article{
         width: 100%;
         display: flex;
         flex-direction: column;
-        /* margin-bottom: 100px; */
         margin-top: 80px;
     }
     .main>article .name{
@@ -603,15 +604,14 @@ body:has(#show-burger:checked) > .shadow{
     }
     .exp_pos{
         display: flex;
-        justify-content: space-between;
-        /* height: 50px; */
+        flex-direction: column;
         width: 100%;
         margin-bottom: 30px;
     }
     .exp_pos_data{
         display: flex;
-        flex-direction: column;
-        width: 50%;
+        justify-content: space-between;
+        width: 100%;
     }
     .exp_pos_data .h{
         margin-bottom: 4px;
@@ -628,6 +628,7 @@ body:has(#show-burger:checked) > .shadow{
     .base{
         font-size: 16px;
         color: #afafbf;
+        text-align: justify;
         font-weight: 400;
     }
     .section_name{
@@ -644,15 +645,101 @@ body:has(#show-burger:checked) > .shadow{
         font-size: 14px;
         font-weight: 300;
         letter-spacing: 2px;
-        width: 50%;
     }
     .project-img{
-        width: 270px;
-        height: 180px;
+        width: 100%;
+        aspect-ratio: 16/9;
         object-fit: cover;
         background-color: cover;
         border-radius: 20px;
         margin-top: 20px;
         margin-bottom: 20px;
+    }
+}
+
+/* Сделаем бургер меню при выходе header'а за границу  */
+@media (max-width: 1400px){
+    .hello{
+        padding-top: 100px;
+    }
+    /* Отображаем бургер меню */
+    #show-burger-menu:has(>input:checked) + header{
+        left: auto;
+        right: 0;
+        transform: translateX(0);
+    }
+    /* Сделаем затемнение body при открытом бургер меню */
+    body:has(#show-burger:checked ) > .shadow{
+        display: flex;
+    }
+    body{
+        padding-right: 50px;
+    }
+    /* Сделаем бургер меню */
+    #show-burger-menu{
+        display: flex;
+    }
+    @media (max-width: 1400px){
+        header{
+            width: 25%;
+            .change-theme{
+                align-self: flex-start;
+            }
+        }
+    }
+    @media (max-width: 800px){
+        header{
+            width: 40%;
+        }
+    }
+    @media (max-width: 500px){
+        header{
+            width: 70%;
+        }
+    }
+    header{
+        position: fixed;
+        box-shadow: none;
+        top: 0;
+        right: 0;
+        transform: translateX(100%);
+        z-index: 1000;
+        display: flex;        
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        padding: 0;
+        height: 100%;
+        transition: .8s;
+        >div{
+            display: none;
+        }
+        nav{
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%;
+            a{
+                margin: 0;
+                transition: .4s;
+                border-radius: 4px;
+                padding-left: 8px;
+                margin-left: 25px;
+                margin-right: 25px;
+                &:hover{
+                    transition: .4s;
+                    background-color: #00000052;
+                }
+            }
+        }
+        .change-theme{
+            justify-content: space-between;
+            >div{
+                display: flex;
+                height: 10vh;
+                width: max-content;
+                align-items: center;
+                padding: 0 20px;
+            }
+        }
     }
 }
