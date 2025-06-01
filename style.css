@@ -1,9 +1,27 @@
+/* Подключим шрифт лоакально */
+@font-face {
+    font-family: "Source Sans 3";
+    src: url("fonts/SourceSans3-VariableFont_wght.ttf");
+}
+
+/* Обнуление сайта */
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Source Sans 3", sans-serif;
 }
+
+
+/* Для плавной прокрутки */
+html {
+  scroll-behavior: smooth;
+}
+
+:root{
+    --blue: #007BFF;
+}
+
 .wow {
     opacity: 0;
     transition: all 0.3s 0.3s ease-out;
@@ -24,43 +42,73 @@
     color: #E7E7E7;
 }
 
-/* Selector */
-input[type=checkbox]{
-    height: 0;
-    width: 0;
-    visibility: hidden;
+header{
+    width: 100%;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 100px;
+    display: flex;
+    align-items: center;
+    min-height: 75px;
+    flex-direction: row;
+    background-color: inherit;
+    box-shadow: 3px 0 32px 1px rgba(255, 255, 255, 0.219);
+    div{
+        width: 200px;
+    }
+    nav{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        a{
+            padding: 10px 25px;
+            color: inherit;
+            margin: 10px 0;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            transition: .4s;
+        }
+    }
 }
-label {
-    cursor: pointer;
-    text-indent: -9999px;
-    width: 50px;
-    height: 22px;
-    background: grey;
-    display: block;
-    border-radius: 22px;
-    position: relative;
+
+/* Switch theme */
+.switch-label{
+    height: 34px;
+    input{
+        display: none;
+    }
+    span{
+        width: 68px;
+        height: 34px;
+        display: inline-block;
+        border-radius: 34px;
+        background-color: #ccc;
+        position: relative;
+        margin: 0 10px;
+    }
+    span:after{
+        width: 26px;
+        height: 26px;
+        background-color: white;
+        border-radius: 50%;
+        content: "";
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        transition: .4s;
+    }
+    input:checked + span:after{
+        transform: translateX(34px);
+        transition: .4s;
+    }
+    input:checked + span{
+        background-color: #007BFF;
+    }
 }
-label:after {
-    content: '';
-    position: absolute;
-    top: 1px;
-    left: 1px;
-    width: 20px;
-    height: 20px;
-    background: #fff;
-    border-radius: 20px;
-    transition: 0.3s;
-}
-input:checked + label {
-    background: #007BFF;
-}
-input:checked + label:after {
-    left: calc(100% - 1px);
-    transform: translateX(-100%);
-}
-label:active:after {
-    width: 50px;
-}
+
 .link{
     text-decoration: none;
     border-bottom: solid #007BFF 4px;
@@ -84,7 +132,10 @@ label:active:after {
         width: 100%;
         background-color:#007BFF;
     }
-
+    &:hover{
+        color: white !important;
+        transition: .4s;
+    }
     &:hover::after{
         height: 100%;
     }
@@ -114,6 +165,69 @@ label:active:after {
         margin-left: 60px;
     }
 }
+.change-theme{
+    img{
+        width: 26px;
+        height: 26px;
+    }
+}
+.shadow{
+    display: none;
+    width: 100%;
+    height: 100vh;
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 500;
+    background-color: #000000c4;
+}
+#show-burger-menu{
+    display: none;
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    flex-direction: column;
+    justify-content: space-around;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+    transition: .4s all;
+    span{
+        display: inline-block;
+        width: 40px;
+        border-radius: 2px;
+        border: 2px solid white;
+        transition: .3s all;
+    }
+    input{
+        display: none;
+    }
+    &:has(>input:checked){
+        span{
+            position: absolute;
+        }
+        .line2{
+            display: none;
+        }
+        .line1{
+            transform: rotate(45deg);
+        }
+        .line3{
+            transform: rotate(-45deg);
+        }
+    }
+}
+
+#show-burger-menu:has(>input:checked) + header{
+    left: auto;
+    right: 0;
+    transform: translateX(0);
+}
+body:has(#show-burger:checked) > .shadow{
+    display: flex;
+}
+
 .teg{
     font-size: 16px;
     border: #007BFF 1px solid;
@@ -122,7 +236,16 @@ label:active:after {
     padding: 2px 10px;
     font-weight: 600;
     margin-right: 10px;
+    transition: .4s;
+
+    &:hover{
+        transition: .4s;
+        cursor: pointer;
+        background-color: #007BFF;
+        color: white;
+    }
 }
+
 .tegs{
     display: flex;
     flex-wrap: wrap;
@@ -154,7 +277,18 @@ label:active:after {
 .footer article{
     width: 300px;
 }
-/* Desktop */
+
+/* Чтобы fixed header имитировать */
+.hello{
+    padding-top: 100px;
+}
+
+/* Для десктопа */
+@media screen and (min-width: 768px){
+
+}
+
+/* Для планшета */
 @media (min-width: 401px){
     body{
         display: flex;
@@ -169,15 +303,15 @@ label:active:after {
         flex-direction: column;
     }
     .change-theme{
-        width: 100%;
-        height: 10vh;
+        /* width: 100%; */
+        /* height: 10vh; */
         display: flex;
         justify-content: right;
-        padding-right: 8vw;
+        /* padding-right: 8vw; */
         align-items: center;
     }
     .change-theme i{
-        margin: 0 10px;
+        /* margin: 0 10px; */
     }
     .hello-text{
         width: 600px;
@@ -268,8 +402,14 @@ label:active:after {
     .skills_list{
         display: flex;
         flex-direction: column;
+        div{
+            display: flex;
+            gap: 4px;
+            height: max-content;
+            align-items: center;
+        }
     }
-    .skills_list p{
+    .skills_list div{
         margin-top: 3px;
 
         &:first-child{
@@ -306,8 +446,60 @@ label:active:after {
     }
 }
 
-/* Mobile */
+/* Для телефона */
 @media (max-width: 400px){
+    /* Сделаем бургер меню */
+    .shadow{
+        /* display: flex; */
+    }
+    #show-burger-menu{
+        display: flex;
+    }
+    header{
+        position: fixed;
+        box-shadow: none;
+        top: 0;
+        right: 0;
+        transform: translateX(100%);
+        z-index: 1000;
+        display: flex;        
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+        padding: 0;
+        width: 70%;
+        height: 100%;
+        transition: .8s;
+        >div{
+            display: none;
+        }
+        nav{
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%;
+            a{
+                margin: 0;
+                transition: .4s;
+                border-radius: 4px;
+                padding-left: 8px;
+                margin-left: 25px;
+                margin-right: 25px;
+                &:hover{
+                    transition: .4s;
+                    background-color: #00000052;
+                }
+            }
+        }
+        .change-theme{
+            justify-content: space-between;
+            >div{
+                display: flex;
+                height: 100%;
+                align-items: center;
+                padding: 0 20px;
+            }
+        }
+    }
     .hello{
         width: 100vw;
         display: flex;
@@ -378,7 +570,6 @@ label:active:after {
     .skills .content{
         display: grid !important; 
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 20px 200px 20px 100px;
     }
     .list1{
         grid-column: 1;
@@ -389,10 +580,12 @@ label:active:after {
         grid-row: 2;
     }
     .txt3{
+        margin-top: 30px;
         grid-column: 1;
         grid-row: 3;
     }
     .txt4{
+        margin-top: 30px;
         grid-column: 2;
         grid-row: 3;
     }
@@ -400,7 +593,8 @@ label:active:after {
         display: flex;
         flex-direction: column;
     }
-    .skills_list p{
+    .skills_list div{
+        display: flex;
         margin-top: 3px;
 
         &:first-child{
@@ -440,6 +634,7 @@ label:active:after {
         color: #007BFF;
         font-weight: 800;
         font-size: 18px;
+        margin-top: 30px;
     }
     .h{
         font-size: 16px;
