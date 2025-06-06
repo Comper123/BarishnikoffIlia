@@ -43,6 +43,46 @@ html {
     color: #E7E7E7;
 }
 
+/* Кнопка прокрутки наверх */
+#scrollToTopButton{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    opacity: 0;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity .4s ease;
+}
+#scrollToTopButton.show{
+    opacity: 1;
+    pointer-events: auto;
+}
+#scrollToTopButton:hover{
+    background-color: #0056b3;
+}
+
+/* Спрятанный элемент */
+.hide{
+    display: none;
+}
+
+.button{
+    margin: auto;
+    width: max-content;
+    padding: 6px 14px;
+    border-radius: 6px;
+}
+
 /* Сделаем тень светлому header */
 body:has(#switch:checked) > header{
     box-shadow: 0 5px 52px 1px rgba(0, 0, 0, 0.37);
@@ -160,9 +200,7 @@ header{
 
 .project{
     margin-bottom: 50px;
-    &:last-child{
-        margin-bottom: 0;
-    }
+    
     .base{
         text-align: justify;
     }
@@ -214,9 +252,9 @@ header{
     flex-direction: column;
     justify-content: space-around;
     top: calc((10vh - 40px) / 2);
-    right: 2vh;
+    right: calc((10vh - 40px) / 2);
     z-index: 1001;
-    transition: .4s all;
+    /* transition: .4s all; */
     span{
         display: inline-block;
         width: 40px;
@@ -288,6 +326,7 @@ header{
     display: flex;
     justify-content: center;
     margin-bottom: 50px;
+    margin-top: 100px;
 }
 .footer article{
     width: 300px;
@@ -295,6 +334,27 @@ header{
 
 /* Для десктопа */
 @media (min-aspect-ratio: 16/9){
+    /* Стили для кнопки подробнее/скрыть */
+    .button{
+        position: relative;
+        &:hover{
+            cursor: pointer;
+        }
+        &::after{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            width: 0%;
+            content: "";
+            transition: .4s;
+            background-color: #007BFF;
+        }
+        &:hover:after{
+            width: 100%;
+            transition: .4s;
+        }
+    }
     /* Отступ сверху при прокрутке */
     html{
         scroll-padding-top: 75px;
@@ -417,6 +477,11 @@ header{
             gap: 4px;
             height: max-content;
             align-items: center;
+            img{
+                width: 20px;
+                height: 20px;
+                object-fit: contain;
+            }
         }
     }
     .skills_list div{
@@ -499,10 +564,19 @@ header{
     }
 }
 
+/* Для нестандартных устройств */
+/* @media (max-aspect-ratio: 16/9) and (min-aspect-ratio: 4/5){
+    
+} */
+
 /* Для телефона */
 @media (max-aspect-ratio: 4/5){
+    /* Стили для кнопки подробнее */
+    .button{
+        background-color: var(--blue);
+    }
     .hello{
-        width: 100vw;
+        width: 100%;
         display: flex;
         flex-direction: column;
     }
@@ -528,7 +602,7 @@ header{
     }
     .hello-main{
         display: flex;
-        width: 100vw;
+        width: 100%;
         align-items: center;
         flex-direction: column-reverse;
         
@@ -597,6 +671,12 @@ header{
     .skills_list div{
         display: flex;
         margin-top: 3px;
+        
+        img{
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
 
         &:first-child{
             margin-top: 10px;
@@ -672,9 +752,9 @@ header{
     body:has(#show-burger:checked ) > .shadow{
         display: flex;
     }
-    body{
+    /* body{
         padding-right: 50px;
-    }
+    } */
     /* Сделаем бургер меню */
     #show-burger-menu{
         display: flex;
